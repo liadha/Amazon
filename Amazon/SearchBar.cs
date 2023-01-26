@@ -16,7 +16,7 @@ namespace Amazon
             get
             {
                 var serchvar = driver.FindElement(By.Id("twotabsearchtextbox"));
-                return serchvar.Text;
+                return serchvar.GetAttribute("value");
 
             }
             set

@@ -71,10 +71,6 @@ namespace Amazon
             }
         }
 
-        public void LoadApplication(string browserName, string url)
-        {
-            this.drivers[browserName].Url = url;
-        }
         public IWebDriver retuenDriver(string browserName)
         {
             return this.drivers[browserName];

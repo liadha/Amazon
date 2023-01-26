@@ -40,7 +40,6 @@ namespace Amazon
         //    this.price = price.Text;
         //    this.link = link.Text;
         //    this.title = title.Text;
-        //}
 
 
 

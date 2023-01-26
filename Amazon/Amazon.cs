@@ -19,7 +19,7 @@ namespace Amazon
         public Amazon(IWebDriver driver, string url)
         {
             driver.Url = url;
-            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             this.pages = new Pages(driver);
 
         }

@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 
 namespace Amazon
@@ -6,13 +7,7 @@ namespace Amazon
     {
         BrowsherFactory browsher;
         IWebDriver driver;
-        List<Item>l=new List<Item>();
-        public enum forDictionary
-        {
-            price_low_then,
-            price_higer_or_equal,
-            free_shipping
-        }
+        List<Item> itemList = new List<Item>();
 
         [SetUp]
         public void Setup()
@@ -20,9 +15,6 @@ namespace Amazon
                 browsher = new BrowsherFactory();
                 browsher.InitBrowser("Chrome");
                 driver = browsher.retuenDriver("Chrome");
-
-
-
         }
 
         [Test]
@@ -32,13 +24,34 @@ namespace Amazon
             Amazon tester = new Amazon(driver, "https://www.amazon.com/?language=en_US&currency=USD");
             tester.Pages.Home.SearchBar.Text = "mouse";
             tester.Pages.Home.SearchBar.click();
-            l=tester.Pages.Results.GetResultBy(new Dictionary<string, string>(){ { "price_low_then","20"},{ "free_shipping","True" } });
+            itemList=tester.Pages.Results.GetResultBy(new Dictionary<string, string>(){ { "price_low_then","100"},{ "price_higer_or_equal","10" },{ "free_shipping","true" } });
 
-            foreach (var i in l)
+            //if the list is empty the test pass but there is no element for those filter
+            if (itemList.Count == 0)
             {
-                Console.WriteLine(i);
+                Console.WriteLine("---------------------------");
+                Console.WriteLine("sorry there is no item like this");
+                Console.WriteLine("---------------------------");
+            }    
+            else
+            {
+                foreach (var item in itemList)
+                {
+                    Console.WriteLine(item.Title);
+                    Console.WriteLine(item.Link);
+                    Console.WriteLine(item.Price);
+                    Console.WriteLine("------------");
+                }
             }
+
+
             Assert.Pass();
+        }
+        [TearDown]
+        public void closeBrowser()
+        {
+            browsher.CloseAllDrivers();
+            
         }
     }
 }
