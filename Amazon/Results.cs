@@ -52,6 +52,10 @@ namespace Amazon
                         {
                             xp += "and descendant::span[@class='a-color-base a-text-bold']//text() ='FREE Shipping '";
                         }
+                        else
+                        {
+                            xp += "and not (descendant::span[@class='a-color-base a-text-bold']//text() ='FREE Shipping ')";
+                        }
                         break;
                     default:
                         Console.WriteLine("There is no option like this : " + filter.Key.ToString());
